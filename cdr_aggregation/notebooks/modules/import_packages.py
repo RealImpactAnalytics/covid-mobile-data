@@ -35,18 +35,18 @@ from collections import Counter
 from shapely import wkt
 
 ### plotting
-import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
-import seaborn as sns
+#import matplotlib.pyplot as plt
+#import matplotlib.dates as mdates
+#import seaborn as sns
 #import folium
 #import gif
 #from folium.plugins import HeatMap, DualMap, Fullscreen
 #from folium.features import DivIcon
 #from branca.element import Template, MacroElement
 import locale
-from matplotlib.ticker import FuncFormatter
-import matplotlib.lines as mlines
+#from matplotlib.ticker import FuncFormatter
+#import matplotlib.lines as mlines
 font = {'family' : 'Calibri',
         'weight' : 'normal',
         'size'   : 18}
-import matplotlib
+#import matplotlib
