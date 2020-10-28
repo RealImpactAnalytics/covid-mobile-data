@@ -5,8 +5,8 @@
 
 
 import datetime as dt
-from etl_code.covid_mobile_data.cdr_aggregation.notebooks.modules.DataSource import *
-from etl_code.covid_mobile_data.cdr_aggregation.notebooks.modules.folder_utils import *
+from covid_mobile_data.cdr_aggregation.notebooks.modules.DataSource import *
+from covid_mobile_data.cdr_aggregation.notebooks.modules.folder_utils import *
 
 
 # In[2]:

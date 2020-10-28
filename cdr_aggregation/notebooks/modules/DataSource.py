@@ -1,7 +1,7 @@
 # Databricks notebook source
 import os
 if os.environ['HOME'] != '/root':
-    from etl_code.covid_mobile_data.cdr_aggregation.notebooks.modules.import_packages import *
+    from covid_mobile_data.cdr_aggregation.notebooks.modules.import_packages import *
 
 from pyspark.sql.functions import to_timestamp
 from pyspark.sql.types import *

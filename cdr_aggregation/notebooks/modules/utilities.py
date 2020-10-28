@@ -2,8 +2,8 @@
 ############# Utility functions used throughout
 import os
 if os.environ['HOME'] != '/root':
-    from etl_code.covid_mobile_data.cdr_aggregation.notebooks.modules.import_packages import *
-    from etl_code.covid_mobile_data.cdr_aggregation.notebooks.modules.DataSource import *
+    from covid_mobile_data.cdr_aggregation.notebooks.modules.import_packages import *
+    from covid_mobile_data.cdr_aggregation.notebooks.modules.DataSource import *
     databricks = False
 else:
     databricks = True
