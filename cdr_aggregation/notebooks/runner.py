@@ -3,8 +3,8 @@
 
 import datetime as dt
 
-from covid_mobile_data.cdr_aggregation.notebooks.modules.DataSource import *
-from covid_mobile_data.cdr_aggregation.notebooks.modules.setup import *
+from modules.DataSource import *
+from modules.setup import *
 
 from pyspark.sql import SparkSession
 spark = SparkSession.builder.getOrCreate()
@@ -98,7 +98,7 @@ def execute_wb_code(start_date, end_date, wb_path, country_code="country", opera
     ## Use this in case you want to cluster the towers and create a distance matrix
     if TOWER_CLUSTER:
         ds.create_gpds()
-        from covid_mobile_data.cdr_aggregation.notebooks.modules.tower_clustering import *
+        from modules.tower_clustering import *
 
         clusterer = tower_clusterer(ds, 'admin2', 'ID_2')
         ds.admin2_tower_map, ds.distances = clusterer.cluster_towers()
@@ -107,7 +107,7 @@ def execute_wb_code(start_date, end_date, wb_path, country_code="country", opera
 
     ## Use this in case you want to create a voronoi tesselation
     if VORONOY_TESSELATION:
-        from covid_mobile_data.cdr_aggregation.notebooks.modules.voronoi import *
+        from modules.voronoi import *
 
         voronoi = voronoi_maker(ds, 'admin3', 'ADM3_PCODE')
         ds.voronoi = voronoi.make_voronoi()

@@ -1,9 +1,9 @@
 # Load modules depending whether we are on docker or on databricks
 import os
 if os.environ['HOME'] != '/root':
-    from covid_mobile_data.cdr_aggregation.notebooks.modules.priority_aggregator import *
-    from covid_mobile_data.cdr_aggregation.notebooks.modules.import_packages import *
-    from covid_mobile_data.cdr_aggregation.notebooks.modules.utilities import *
+    from modules.priority_aggregator import *
+    from modules.import_packages import *
+    from modules.utilities import *
 else:
     databricks = True
 

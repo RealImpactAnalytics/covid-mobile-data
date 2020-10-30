@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from covid_mobile_data.cdr_aggregation.notebooks.modules.DataSource import *
-from covid_mobile_data.cdr_aggregation.notebooks.modules.setup import *
+from modules.DataSource import *
+from modules.setup import *
 
 
 config_file = '../config_file.py'
@@ -18,7 +18,7 @@ ds.load_geo_csvs()
 
 ds.create_gpds()
 
-from covid_mobile_data.cdr_aggregation.notebooks.modules.tower_clustering import *
+from modules.tower_clustering import *
 
 clusterer = tower_clusterer(ds, 'admin2', 'ID_2')
 ds.admin2_tower_map, ds.distances = clusterer.cluster_towers()
@@ -27,7 +27,7 @@ ds.admin3_tower_map, ds.distances  = clusterer.cluster_towers()
 
 # Use this in case you want to create a voronoi tesselation
 
-from covid_mobile_data.cdr_aggregation.notebooks.modules.voronoi import *
+from modules.voronoi import *
 
 voronoi = voronoi_maker(ds, 'admin3', 'ADM3_PCODE')
 ds.voronoi = voronoi.make_voronoi()
