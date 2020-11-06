@@ -3,7 +3,7 @@ from geovoronoi import voronoi_regions_from_coords
 
 import os
 if os.environ['HOME'] != '/root':
-    from etl_code.covid_mobile_data.cdr_aggregation.notebooks.modules.tower_clustering import *
+    from modules.tower_clustering import *
 
 ## Class to handle spark and df in session
 class voronoi_maker:

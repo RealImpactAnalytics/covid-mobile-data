@@ -10,7 +10,7 @@ from scipy.cluster.hierarchy import fcluster
 from copy import deepcopy
 import os
 if os.environ['HOME'] != '/root':
-    from etl_code.covid_mobile_data.cdr_aggregation.notebooks.modules.utilities import *
+    from modules.utilities import *
     databricks = False
 else:
     databricks = True

@@ -1,7 +1,7 @@
 import os
 if os.environ['HOME'] != '/root':
-    from etl_code.covid_mobile_data.cdr_aggregation.notebooks.modules.DataSource import *
-    from etl_code.covid_mobile_data.cdr_aggregation.notebooks.modules.sql_code_aggregates import *
+    from modules.DataSource import *
+    from modules.sql_code_aggregates import *
     databricks = False
 else:
     databricks = True
