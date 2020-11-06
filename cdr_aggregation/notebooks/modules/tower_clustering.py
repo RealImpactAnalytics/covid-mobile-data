@@ -10,7 +10,7 @@ from scipy.cluster.hierarchy import fcluster
 from copy import deepcopy
 import os
 if os.environ['HOME'] != '/root':
-    from modules.utilities import *
+    from covid_mobile_data.cdr_aggregation.notebooks.modules.utilities import *
     databricks = False
 else:
     databricks = True
@@ -166,12 +166,10 @@ class tower_clusterer:
 
     def save_results(self):
       # save results of mapping of clusters to regions
-      self.joined = self.joined.rename(columns={self.region_var: 'region'})
+      self.joined = self.joined.rename(columns={self.region_var:'region'})
       self.towers_regions_clusters_all_vars = \
-        self.joined[['cell_id', 'LAT', 'LNG', 'centroid_LAT',
-                           'centroid_LNG', 
-                           'region', 
-                           'cluster']]
+        self.joined.loc[:,['cell_id', 'LAT', 'LNG', 'centroid_LAT',
+                           'centroid_LNG', 'region', 'cluster']]
       self.towers_regions_clusters_all_vars  = \
         self.spark.createDataFrame(self.towers_regions_clusters_all_vars)
       save_csv(self.towers_regions_clusters_all_vars,

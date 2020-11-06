@@ -70,7 +70,7 @@ get_ipython().run_line_magic('autoreload', '2')
 # In[ ]:
 
 
-from modules.DataSource import *
+from covid_mobile_data.cdr_aggregation.notebooks.modules.DataSource import *
 
 
 # In[ ]:
@@ -95,7 +95,7 @@ ds.show_config()
 # In[ ]:
 
 
-from modules.setup import *
+from covid_mobile_data.cdr_aggregation.notebooks.modules.setup import *
 
 
 # # Import data
@@ -168,7 +168,7 @@ ds.load_geo_csvs()
 ## Use this in case you want to cluster the towers and create a distance matrix
 if TOWER_CLUSTER:
     ds.create_gpds()
-    from modules.tower_clustering import *
+    from covid_mobile_data.cdr_aggregation.notebooks.modules.tower_clustering import *
     clusterer = tower_clusterer(ds, 'admin2', 'ID_2')
     ds.admin2_tower_map, ds.distances = clusterer.cluster_towers()
     clusterer = tower_clusterer(ds, 'admin3', 'ADM3_PCODE')
@@ -180,7 +180,7 @@ if TOWER_CLUSTER:
 
 ## Use this in case you want to create a voronoi tesselation
 if VORONOY_TESSELATION:
-    from modules.voronoi import *
+    from covid_mobile_data.cdr_aggregation.notebooks.modules.voronoi import *
     voronoi = voronoi_maker(ds, 'admin3', 'ADM3_PCODE')
     ds.voronoi = voronoi.make_voronoi()
 

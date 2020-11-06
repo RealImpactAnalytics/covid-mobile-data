@@ -1,8 +1,8 @@
 import os
 if os.environ['HOME'] != '/root':
-    from modules.DataSource import *
-    from modules.sql_code_aggregates import *
-    from modules.aggregator import *
+    from covid_mobile_data.cdr_aggregation.notebooks.modules.DataSource import *
+    from covid_mobile_data.cdr_aggregation.notebooks.modules.sql_code_aggregates import *
+    from covid_mobile_data.cdr_aggregation.notebooks.modules.aggregator import *
     databricks = False
 else:
     databricks = True
