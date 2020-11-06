@@ -1,9 +1,9 @@
 # Databricks notebook source
 import os
 if os.environ['HOME'] != '/root':
-    from covid_mobile_data.cdr_aggregation.notebooks.modules.import_packages import *
-    from covid_mobile_data.cdr_aggregation.notebooks.modules.utilities import *
-    from covid_mobile_data.cdr_aggregation.notebooks.modules.priority_aggregator import *
+    from etl_code.covid_mobile_data.cdr_aggregation.notebooks.modules.import_packages import *
+    from etl_code.covid_mobile_data.cdr_aggregation.notebooks.modules.utilities import *
+    from etl_code.covid_mobile_data.cdr_aggregation.notebooks.modules.priority_aggregator import *
 else:
     databricks = True
 

@@ -3,17 +3,14 @@
 
 import datetime as dt
 
-from covid_mobile_data.cdr_aggregation.notebooks.modules.DataSource import *
-from covid_mobile_data.cdr_aggregation.notebooks.modules.setup import *
+from etl_code.covid_mobile_data.cdr_aggregation.notebooks.modules.DataSource import *
+from etl_code.covid_mobile_data.cdr_aggregation.notebooks.modules.setup import *
 
 from pyspark.sql import SparkSession
 spark = SparkSession.builder.getOrCreate()
 
 
-def execute_wb_code(start_date, end_date, wb_path, country_code="country", operator_code="operator"):
-    # "/Users/balthazarcoutant/Documents/Github/covid-mobile-data/cdr_aggregation/data"
-    start_date = dt.datetime.strptime(start_date, "%Y-%m-%d")
-    end_date = dt.datetime.strptime(end_date, "%Y-%m-%d")
+def execute_wb_code():
 
     # Preprocess raw csv data
     STANDARDIZE_CSV_FILES = True
@@ -43,27 +40,27 @@ def execute_wb_code(start_date, end_date, wb_path, country_code="country", opera
     ])
 
     datasource_configs = {
-        "base_path": wb_path,  # folder path used in this docker env
-        "country_code": country_code,
-        "telecom_alias": operator_code,
+        "base_path": "/Users/balthazarcoutant/Documents/Github/covid-mobile-data/cdr_aggregation/data",  # folder path used in this docker env
+        "country_code": "country",
+        "telecom_alias": "operator",
         "schema": schema,
         "data_paths": ["*.csv"],
         "filestub": "data-file",
         "geofiles": {
-            "tower_sites": 'sites.csv',
-            "admin1": 'admin1_shapefile.csv',
-            "admin1_tower_map": "admin1_tower_mapping.csv",
-            "admin2": 'admin2_shapefile.csv',
-            "admin2_tower_map": "admin2_tower_mapping.csv",
-            "admin3": 'admin1_shapefile.csv',
-            "admin3_tower_map": "admin3_tower_mapping.csv",
+            "tower_sites": 'ci_sites.csv',
+            "admin1": 'ci_admin1_shapefile.csv',
+            "admin1_tower_map": "ci_admin1_tower_mapping.csv",
+            "admin2": 'ci_admin2_shapefile.csv',
+            "admin2_tower_map": "ci_admin2_tower_mapping.csv",
+            "admin3": 'ci_admin1_shapefile.csv',
+            "admin3_tower_map": "ci_admin3_tower_mapping.csv",
             "voronoi": "country_voronoi_shapefile.csv",
             "voronoi_tower_map": "country_voronoi_tower_map.csv",
             "distances": "country_distances_pd_long.csv",
         },
         "shapefiles": ['admin2', 'admin3'],
-        "dates": {'start_date': start_date,
-                  'end_date': end_date},
+        "dates": {'start_date': dt.datetime(2020, 3, 1),
+                  'end_date': dt.datetime(2020, 3, 31)},
         "load_seperator": ",",
         "load_datemask": "yyyy-MM-dd HH:mm:ss",
         "load_mode": "DROPMALFORMED"
@@ -98,7 +95,7 @@ def execute_wb_code(start_date, end_date, wb_path, country_code="country", opera
     ## Use this in case you want to cluster the towers and create a distance matrix
     if TOWER_CLUSTER:
         ds.create_gpds()
-        from covid_mobile_data.cdr_aggregation.notebooks.modules.tower_clustering import *
+        from etl_code.covid_mobile_data.cdr_aggregation.notebooks.modules.tower_clustering import *
 
         clusterer = tower_clusterer(ds, 'admin2', 'ID_2')
         ds.admin2_tower_map, ds.distances = clusterer.cluster_towers()
@@ -107,7 +104,7 @@ def execute_wb_code(start_date, end_date, wb_path, country_code="country", opera
 
     ## Use this in case you want to create a voronoi tesselation
     if VORONOY_TESSELATION:
-        from covid_mobile_data.cdr_aggregation.notebooks.modules.voronoi import *
+        from etl_code.covid_mobile_data.cdr_aggregation.notebooks.modules.voronoi import *
 
         voronoi = voronoi_maker(ds, 'admin3', 'ADM3_PCODE')
         ds.voronoi = voronoi.make_voronoi()
