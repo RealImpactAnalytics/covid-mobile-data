@@ -1,11 +1,14 @@
 # Load modules depending whether we are on docker or on databricks
 import os
-if os.environ['HOME'] != '/root':
-    from modules.aggregator import *
-    from modules.import_packages import *
-    from modules.utilities import *
-else:
-    databricks = True
+import datetime as dt
+
+import pyspark.sql.functions as F
+import pyspark.sql.types as T
+from pyspark.sql.window import Window
+
+from covid_mobile_data_wb.cdr_aggregation.notebooks.modules.aggregator import aggregator
+from covid_mobile_data_wb.cdr_aggregation.notebooks.modules.utilities import user_window, save_and_load_parquet
+
 
 class priority_aggregator(aggregator):
     """This class inherits from the aggregator class.
@@ -134,6 +137,7 @@ class priority_aggregator(aggregator):
 
         # Check whether a parquet file with variable has already been created,
         # this differs from databricks to docker
+        databricks = False
         if databricks:
           try:
             # does the file exist?

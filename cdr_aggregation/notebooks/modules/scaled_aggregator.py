@@ -1,11 +1,13 @@
 # Databricks notebook source
 import os
-if os.environ['HOME'] != '/root':
-    from modules.import_packages import *
-    from modules.utilities import *
-    from modules.priority_aggregator import *
-else:
-    databricks = True
+
+import pyspark.sql.functions as F
+import pyspark.sql.types as T
+from pyspark.sql.window import Window
+
+from covid_mobile_data_wb.cdr_aggregation.notebooks.modules.priority_aggregator import priority_aggregator
+from covid_mobile_data_wb.cdr_aggregation.notebooks.modules.utilities import user_window, save_and_load_parquet
+
 
 class scaled_aggregator(priority_aggregator):
     """Class to handle scaled priority aggregations

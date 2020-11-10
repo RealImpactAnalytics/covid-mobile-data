@@ -1,10 +1,9 @@
 import os
-if os.environ['HOME'] != '/root':
-    from modules.DataSource import *
-    from modules.sql_code_aggregates import *
-    databricks = False
-else:
-    databricks = True
+import glob
+import shutil
+
+from covid_mobile_data_wb.cdr_aggregation.notebooks.modules.sql_code_aggregates import write_sql_code
+
 
 # Databricks notebook source
 class aggregator:
@@ -113,6 +112,7 @@ class aggregator:
 
     def rename_csv(self, table_name):
       # move one folder up and rename to human-legible .csv name
+      databricks = False
       if databricks:
           dbutils.fs.mv(dbutils.fs.ls(self.result_path + '/' + table_name)[-1].path,
                   self.result_path + '/' + table_name + '.csv')
@@ -134,6 +134,7 @@ class aggregator:
             self.rename_if_not_existing(table_name)
 
     def rename_if_not_existing(self, table_name):
+            databricks = False
             if databricks:
               try:
                 # does the csv already exist
@@ -153,6 +154,7 @@ class aggregator:
                   self.rename_csv(table_name)
 
     def check_if_file_exists(self, table_name):
+        databricks = False
         if databricks:
           try:
             # does the folder exist?

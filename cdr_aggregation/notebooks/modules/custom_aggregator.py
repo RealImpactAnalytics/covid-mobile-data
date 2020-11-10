@@ -1,11 +1,16 @@
 # Load modules depending whether we are on docker or on databricks
+
 import os
-if os.environ['HOME'] != '/root':
-    from modules.priority_aggregator import *
-    from modules.import_packages import *
-    from modules.utilities import *
-else:
-    databricks = True
+
+import datetime as dt
+
+import pyspark.sql.functions as F
+import pyspark.sql.types as T
+from pyspark.sql.window import Window
+
+from covid_mobile_data_wb.cdr_aggregation.notebooks.modules.priority_aggregator import priority_aggregator
+from covid_mobile_data_wb.cdr_aggregation.notebooks.modules.utilities import user_window, save_and_load_parquet
+
 
 class custom_aggregator(priority_aggregator):
     """This class inherits from the priority aggregator class.

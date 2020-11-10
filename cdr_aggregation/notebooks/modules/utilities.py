@@ -1,12 +1,16 @@
 
 ############# Utility functions used throughout
 import os
-if os.environ['HOME'] != '/root':
-    from modules.import_packages import *
-    from modules.DataSource import *
-    databricks = False
-else:
-    databricks = True
+import glob
+import shutil
+
+import pandas as pd
+import numpy as np
+
+import pyspark.sql.functions as F
+import pyspark.sql.types as T
+from pyspark.sql import Window
+
 
 def save_and_load_parquet(df, filename, ds):
     # write parquet
@@ -20,6 +24,7 @@ def save_csv(matrix, path, filename):
     matrix.repartition(1).write.mode('overwrite').format('com.databricks.spark.csv') \
         .save(os.path.join(path, filename), header = 'true')
     # move one folder up and rename to human-legible .csv name
+    databricks = False
     if databricks:
         dbutils.fs.mv(dbutils.fs.ls(path + '/' + filename)[-1].path,
                   path + '/' + filename + '.csv')

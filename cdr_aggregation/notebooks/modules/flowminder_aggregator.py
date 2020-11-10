@@ -1,11 +1,7 @@
 import os
-if os.environ['HOME'] != '/root':
-    from modules.DataSource import *
-    from modules.sql_code_aggregates import *
-    from modules.aggregator import *
-    databricks = False
-else:
-    databricks = True
+
+from covid_mobile_data_wb.cdr_aggregation.notebooks.modules.aggregator import aggregator
+
 
 # Databricks notebook source
 class flowminder_aggregator(aggregator):
